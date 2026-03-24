@@ -2,35 +2,84 @@
 <html>
 <head>
     <title>Loan Approval Predictor</title>
+
     <style>
         body {
-            font-family: Arial;
-            background: #f5f5f5;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #667eea, #764ba2);
             text-align: center;
+            margin: 0;
+            padding: 0;
         }
+
         .container {
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
             padding: 30px;
-            margin: 50px auto;
+            margin: 60px auto;
             width: 400px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px gray;
+            border-radius: 15px;
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
         }
+
+        h2 {
+            color: #333;
+        }
+
         input, select {
             width: 90%;
             padding: 10px;
             margin: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            outline: none;
         }
+
+        input:focus, select:focus {
+            border-color: #667eea;
+        }
+
         button {
-            padding: 10px 20px;
-            background: green;
+            padding: 12px 25px;
+            background: #28a745;
             color: white;
             border: none;
             cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
         }
-        h2 {
-            color: #333;
+
+        button:hover {
+            background: #218838;
         }
+
+        .result {
+            margin-top: 20px;
+        }
+
+        .approved {
+            color: green;
+            font-weight: bold;
+        }
+
+        .rejected {
+            color: red;
+            font-weight: bold;
+        }
+
+        .github-link {
+            margin-bottom: 10px;
+        }
+
+        .github-link a {
+            text-decoration: none;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .github-link a:hover {
+            color: black;
+        }
+
     </style>
 </head>
 
@@ -39,14 +88,18 @@
 <div class="container">
     <h2>🏦 Loan Approval Predictor</h2>
 
+    <!-- GitHub Link -->
+    <div class="github-link">
+        <a href="https://github.com/subhamsahu1995/loan_approval_model" target="_blank">
+            🔗 View Source Code on GitHub
+        </a>
+    </div>
+
     <form action="/predict" method="post">
 
         <input type="number" name="income" placeholder="Annual Income (€)" required>
-
         <input type="number" name="loan" placeholder="Loan Amount (€)" required>
-
         <input type="number" step="0.1" name="rate" placeholder="Interest Rate (%)" required>
-
         <input type="number" name="credit" placeholder="Credit Score (300-850)" required>
 
         <label>Previous Loan Default?</label><br>
@@ -56,7 +109,6 @@
         </select>
 
         <input type="number" name="emp_exp" placeholder="Years of Employment" required>
-
         <input type="number" name="cred_hist" placeholder="Credit History Length (years)" required>
 
         <br>
@@ -65,9 +117,13 @@
     </form>
 
     {% if prediction %}
-        <h3>{{ prediction }}</h3>
-        <p>Approval Chance: {{ probability }}%</p>
-        <p>{{ risk }}</p>
+        <div class="result">
+            <h3 class="{% if 'Approved' in prediction %}approved{% else %}rejected{% endif %}">
+                {{ prediction }}
+            </h3>
+            <p>Approval Chance: {{ probability }}%</p>
+            <p>{{ risk }}</p>
+        </div>
     {% endif %}
 
 </div>
