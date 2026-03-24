@@ -8,8 +8,6 @@ loanenv/
 venv/
 env/
 
-# Jupyter Notebook checkpoints
-.ipynb_checkpoints/
 
 # Mac
 .DS_Store
