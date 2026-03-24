@@ -1,5 +1,8 @@
 # 🏦 Loan Approval Prediction System
 
+Live app link
+https://loan-approval-model-acnr.onrender.com/
+
 A Machine Learning web application that predicts whether a loan should be:
 
 - ✅ Approved (1)
